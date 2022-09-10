@@ -15,5 +15,11 @@ func main() {
 			h.Write([]byte(Key))
 			return int(h.Sum32()) % Size
 		})
-	fmt.Println(hashTable)
+
+  hashTable.Set("Hello", 69)
+  hashTable.Set("Hi", 420)
+  fmt.Println(hashTable.Get("Hello"))
+  fmt.Println(hashTable.Get("Hi"))
+  fmt.Println(hashTable.Get("Not found"))
+  fmt.Println(hashTable)
 }
