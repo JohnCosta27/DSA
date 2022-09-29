@@ -32,7 +32,7 @@ func TestMergeSort(t *testing.T) {
 }
 
 func TestLargeMergeSort(t *testing.T) {
-  LENGTH := 1000000
+  LENGTH := 100000
   list := make([]int, LENGTH)
   for i := 0; i < LENGTH; i++ {
     list[i] = rand.Intn(50000) - 25000
