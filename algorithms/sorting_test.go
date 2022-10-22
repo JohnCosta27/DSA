@@ -70,7 +70,7 @@ func TestSort(t *testing.T) {
 }
 
 func TestLargeSort(t *testing.T) {
-	LENGTH := 100000
+	LENGTH := 1000000
 	list := make([]int, LENGTH)
 	for i := 0; i < LENGTH; i++ {
 		list[i] = rand.Intn(50000) - 25000
@@ -78,9 +78,13 @@ func TestLargeSort(t *testing.T) {
 
 	start := time.Now()
 	sortedListMerge := MergeSort(list)
-	sortedListQuick := QuickSort(list)
 	end := time.Since(start)
-	t.Logf("Time taken: %v\n", end)
+	t.Logf("Time taken (merge): %v\n", end)
+
+	start = time.Now()
+	sortedListQuick := QuickSort(list)
+	end = time.Since(start)
+	t.Logf("Time taken (quick): %v\n", end)
 
 	if len(sortedListMerge) != LENGTH {
 		t.Logf("Length of list should be the same as unsorted, length: %d\n", len(sortedListMerge))
