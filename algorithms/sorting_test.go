@@ -22,36 +22,36 @@ func TestMergeLists(t *testing.T) {
 
 func TestPartition(t *testing.T) {
 	list1 := []int{16, 12, 7, 3, 15, 9, 11}
-  pivot := list1[len(list1) - 1]
-	Partition(list1, 0, len(list1) - 1)
+	pivot := list1[len(list1)-1]
+	Partition(list1, 0, len(list1)-1)
 
-  index := -1
-  for i, v := range list1 {
-    if v == pivot {
-      index = i
-    }
-  }
+	index := -1
+	for i, v := range list1 {
+		if v == pivot {
+			index = i
+		}
+	}
 
-  for i, v := range list1 {
-    if i < index {
-      if !(v < list1[index]) {
-        t.Logf("Every element to the left of the pivot must be smaller than it %v\n", list1)
-        t.FailNow()
-      }
-    } else if i > index {
-      if !(v > list1[index]) {
-        t.Logf("Every element to the left of the pivot must be smaller than it %v\n", list1)
-        t.FailNow()
-      }
-    }
-  }
+	for i, v := range list1 {
+		if i < index {
+			if !(v < list1[index]) {
+				t.Logf("Every element to the left of the pivot must be smaller than it %v\n", list1)
+				t.FailNow()
+			}
+		} else if i > index {
+			if !(v > list1[index]) {
+				t.Logf("Every element to the left of the pivot must be smaller than it %v\n", list1)
+				t.FailNow()
+			}
+		}
+	}
 
 }
 
 func TestSort(t *testing.T) {
 	list := []int{1, 18, -3, 7, 9, 4, -10, 20}
 	sortedListMerge := MergeSort(list)
-  sortedListQuick := QuickSort(list)
+	sortedListQuick := QuickSort(list)
 
 	for i := 0; i < len(sortedListMerge)-1; i++ {
 		if sortedListMerge[i] > sortedListMerge[i+1] {
@@ -69,7 +69,7 @@ func TestSort(t *testing.T) {
 
 }
 
-func TestLargeMergeSort(t *testing.T) {
+func TestLargeSort(t *testing.T) {
 	LENGTH := 100000
 	list := make([]int, LENGTH)
 	for i := 0; i < LENGTH; i++ {
@@ -77,18 +77,26 @@ func TestLargeMergeSort(t *testing.T) {
 	}
 
 	start := time.Now()
-	sortedList := MergeSort(list)
+	sortedListMerge := MergeSort(list)
+	sortedListQuick := QuickSort(list)
 	end := time.Since(start)
 	t.Logf("Time taken: %v\n", end)
 
-	if len(sortedList) != LENGTH {
-		t.Logf("Length of list should be the same as unsorted, length: %d\n", len(sortedList))
+	if len(sortedListMerge) != LENGTH {
+		t.Logf("Length of list should be the same as unsorted, length: %d\n", len(sortedListMerge))
 		t.FailNow()
 	}
 
 	for i := 0; i < LENGTH-1; i++ {
-		if sortedList[i] > sortedList[i+1] {
-			t.Logf("Listed should be sorted, got: %x\n", sortedList)
+		if sortedListMerge[i] > sortedListMerge[i+1] {
+			t.Logf("Listed should be sorted, got: %x\n", sortedListMerge)
+			t.FailNow()
+		}
+	}
+
+	for i := 0; i < LENGTH-1; i++ {
+		if sortedListQuick[i] > sortedListQuick[i+1] {
+			t.Logf("Listed should be sorted, got: %v\n", sortedListQuick)
 			t.FailNow()
 		}
 	}
