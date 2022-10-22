@@ -21,26 +21,52 @@ func TestMergeLists(t *testing.T) {
 }
 
 func TestPartition(t *testing.T) {
-	list1 := []int{10, 12, 7, 3, 15, 9, 11}
-  outputList := []int{10, 7, 3, 9, 11, 12, 15}
-	Partition(list1, 1, len(list1) - 1)
+	list1 := []int{16, 12, 7, 3, 15, 9, 11}
+  pivot := list1[len(list1) - 1]
+	Partition(list1, 0, len(list1) - 1)
 
-  if !CompareSlices(list1, outputList) {
-    t.Logf("Slices are not equal, got: %v\n", list1)
-    t.Logf("Wanted: %v\n", outputList)
-    t.FailNow()
+  index := -1
+  for i, v := range list1 {
+    if v == pivot {
+      index = i
+    }
   }
+
+  for i, v := range list1 {
+    if i < index {
+      if !(v < list1[index]) {
+        t.Logf("Every element to the left of the pivot must be smaller than it %v\n", list1)
+        t.FailNow()
+      }
+    } else if i > index {
+      if !(v > list1[index]) {
+        t.Logf("Every element to the left of the pivot must be smaller than it %v\n", list1)
+        t.FailNow()
+      }
+    }
+  }
+
 }
 
-func TestMergeSort(t *testing.T) {
+func TestSort(t *testing.T) {
 	list := []int{1, 18, -3, 7, 9, 4, -10, 20}
-	sortedList := MergeSort(list)
-	for i := 0; i < len(sortedList)-1; i++ {
-		if sortedList[i] > sortedList[i+1] {
-			t.Logf("Listed should be sorted, got: %x\n", sortedList)
+	sortedListMerge := MergeSort(list)
+  sortedListQuick := QuickSort(list)
+
+	for i := 0; i < len(sortedListMerge)-1; i++ {
+		if sortedListMerge[i] > sortedListMerge[i+1] {
+			t.Logf("Listed should be sorted (merge sort), got: %v\n", sortedListMerge)
 			t.FailNow()
 		}
 	}
+
+	for i := 0; i < len(sortedListQuick)-1; i++ {
+		if sortedListQuick[i] > sortedListQuick[i+1] {
+			t.Logf("Listed should be sorted (quick sort), got: %v\n", sortedListQuick)
+			t.FailNow()
+		}
+	}
+
 }
 
 func TestLargeMergeSort(t *testing.T) {

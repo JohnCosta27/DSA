@@ -1,7 +1,7 @@
 package algorithms
 
 func QuickSort(arr []int) []int {
-  QuickSortRecursive(arr, 1, len(arr) - 1)
+  QuickSortRecursive(arr, 0, len(arr) - 1)
   return arr 
 }
 
@@ -25,14 +25,16 @@ func Partition(arr []int, start int, end int) int {
     // Increase size of smaller partition.
     if arr[biggerPartition] <= pivot {
       smallerPartition++
-      temp := arr[smallerPartition]
-      arr[smallerPartition] = arr[biggerPartition]
-      arr[biggerPartition] = temp
+      Swap(arr, smallerPartition, biggerPartition)
     }
   }
-  temp := arr[smallerPartition + 1]
-  arr[smallerPartition + 1] = pivot
-  arr[end] = temp
   // Return location of pivot.
+  Swap(arr, smallerPartition + 1, end)
   return smallerPartition + 1
+}
+
+func Swap(arr []int, i int, j int) {
+  temp := arr[i]
+  arr[i] = arr[j]
+  arr[j] = temp
 }
