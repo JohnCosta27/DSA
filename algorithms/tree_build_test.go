@@ -14,41 +14,44 @@ func getNode(value int) TreeNode {
 
 func TestBasic(t *testing.T) {
 
-  first := getNode(1);
-  second := getNode(2);
-  third := getNode(3);
-  forth := getNode(4);
-  fifth := getNode(5);
-  sixth := getNode(6);
-  root := getNode(7);
+  first := getNode(97);
+  second := getNode(1);
+  third := getNode(98);
+  forth := getNode(0);
+  fifth := getNode(100);
+  sixth := getNode(99);
+  root := getNode(2);
 
-  third.left = &first;
-  third.right = &second;
+  root.left = &first;
+  root.right = &second;
 
-  sixth.left = &forth;
-  sixth.right = &fifth;
+  second.left = &third;
+  second.right = &forth;
 
-  root.left = &third;
-  root.right = &sixth;
+  forth.left = &fifth;
+  forth.right = &sixth;
+
 
   arr := []int{};
-  expectedArr := []int{7, 3, 1, 2, 6, 4, 5};
+  expectedArr := []int{2, 97, 1, 98, 0, 100, 99};
   PreOrder(root, &arr);
 
   for i, v := range arr {
     if (expectedArr[i] != v) {
-      t.Logf("Expected %d, found %d\n", v, expectedArr[i]);
+      t.Logf("Pre Order | Expected %d, found %d\n", expectedArr[i], v);
       t.Fail();
     }
   }
 
   arr2 := []int{};
-  expectedArr2 := []int{1, 3, 2, 7, 4, 6, 5};
+  expectedArr2 := []int{97, 2, 98, 1, 100, 0, 99};
   InOrder(root, &arr2);
+
+  t.Log(arr2);
 
   for i, v := range arr2 {
     if (expectedArr2[i] != v) {
-      t.Logf("Expected %d, found %d\n", v, expectedArr[i]);
+      t.Logf("In Order | Expected %d, found %d\n", expectedArr[i], v);
       t.Fail();
     }
   }
