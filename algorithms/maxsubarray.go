@@ -18,6 +18,7 @@ func FindMaxSubArray(arr []int) int {
 	}
 
 	mid := len(arr) / 2
+  
 	left := FindMaxSubArray(arr[0:mid])
 	right := FindMaxSubArray(arr[mid:])
 	midCross := FindBestCrossing(mid, arr)
