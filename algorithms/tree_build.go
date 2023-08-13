@@ -39,6 +39,15 @@ func search(traversal []int, value int) int {
   panic("not found");
 }
 
+/* 
+ * Given a pre and in order traversal, we can rebuild a tree.
+ * Algorithm from: https://www.geeksforgeeks.org/construct-tree-from-given-inorder-and-preorder-traversal/
+ *
+ * The reason you need 2 traversal is because one is not deterministic, there are different trees that
+ * give the same traversal, hence the need to cross reference.
+ * Time: O(n * n), worst case. When the tree is left skewed. 
+ * Time: Theta(n log n) Average time.
+ */
 func BuildTree(preOrder []int, inOrder []int, inStart int, inEnd int, preOrderIndex *int) *TreeNode {
   if (inStart > inEnd) {
     return nil;
