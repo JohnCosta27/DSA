@@ -69,3 +69,30 @@ func BuildTree(preOrder []int, inOrder []int, inStart int, inEnd int, preOrderIn
   
   return &node;
 }
+
+/*
+ * Given a pre order traversal only. We can build a tree given that
+ * the internal nodes of the tree all have the same value.
+ *
+ * Much less flexible than the example above, but it allows for duplicates.
+ */
+func BuildSimpleTree(preOrder []int, index *int) *TreeNode {
+  // Not an internal node
+  if (preOrder[*index] != 0) {
+    *index += 1;
+    return &TreeNode{
+      value: preOrder[*index - 1],
+    }
+  }
+
+  node := TreeNode{
+    value: 0,
+  }
+
+  *index += 1;
+
+  node.left = BuildSimpleTree(preOrder, index);
+  node.right = BuildSimpleTree(preOrder, index);
+
+  return &node;
+};

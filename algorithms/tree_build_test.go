@@ -79,3 +79,48 @@ func TestBasic(t *testing.T) {
     }
   }
 }
+
+func TestDuplicate(t *testing.T) {
+  first := getNode(97);
+  second := getNode(0);
+  third := getNode(98);
+  forth := getNode(0);
+  fifth := getNode(100);
+  sixth := getNode(99);
+  root := getNode(0);
+
+  root.left = &first;
+  root.right = &second;
+
+  second.left = &third;
+  second.right = &forth;
+
+  forth.left = &fifth;
+  forth.right = &sixth;
+
+  arr := []int{};
+  expectedArr := []int{0, 97, 0, 98, 0, 100, 99};
+  PreOrder(root, &arr);
+
+  for i, v := range arr {
+    if (expectedArr[i] != v) {
+      t.Logf("Pre Order | Expected %d, found %d\n", expectedArr[i], v);
+      t.Fail();
+    }
+  }
+
+  counter := 0;
+  node := BuildSimpleTree(arr, &counter);
+
+  t.Log(node.value);
+
+  preOrderTree := []int{};
+  PreOrder(*node, &preOrderTree);
+
+  for i, v := range preOrderTree {
+    if (expectedArr[i] != v) {
+      t.Logf("Expected %d, found %d\n", v, expectedArr[i]);
+      t.Fail();
+    }
+  }
+}
